@@ -36,8 +36,6 @@ parseit :: String -> Input
 parseit s = case parse (pInput <* eof) "input" s of
     Left err -> error $ errorBundlePretty err
     Right x -> x
--- parseit s | [(n, "")] <- readP_to_S parseInput s = n
---           | otherwise = error "parse error"
 
 pInput :: Parser Input
 pInput = decimal `sepBy1` char ',' <* newline
@@ -49,7 +47,6 @@ inputToState = M.fromListWith (+) . fmap (, 1)
 afterNDays :: Int -> Input -> Int
 afterNDays n = (!! n) . map (sum . map snd . M.toList) . iterate stepAll . inputToState
 
--- solution1 :: Input -> Int
 solution1 :: Input -> Int
 solution1 = afterNDays 80
 

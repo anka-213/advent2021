@@ -26,6 +26,8 @@ import System.Exit ( ExitCode(ExitFailure, ExitSuccess) )
 import Day4 ( day4p1, day4p2 )
 import Day5 ( day5p1, day5p2 )
 import Day6 ( day6p1, day6p2 )
+import Day7 ( day7p1, day7p2 )
+import Day8 ( day8p1, day8p2 )
 
 -- | Run a day's solution
 runDay :: IO ()
@@ -55,4 +57,6 @@ days =
   ,[day4p1, day4p2]
   ,[day5p1, day5p2]
   ,[day6p1, day6p2]
+  ,[day7p1, day7p2]
+  ,[day8p1, day8p2]
   ]
