@@ -46,3 +46,13 @@ executable advent2021
   ghc-options:         -threaded
                        -rtsopts
                        -with-rtsopts=-N
+
+test-suite advent2021-test
+  import:              common-options
+  type: exitcode-stdio-1.0
+  main-is: Spec.hs
+  hs-source-dirs:
+      test
+  build-depends:       advent2021
+                     , hspec
+                     , raw-strings-qq
