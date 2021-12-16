@@ -7,4 +7,4 @@ day1 :: String -> String
 day1 = show . solution . map read . lines
 
 solution :: [Int] -> Int
-solution = head
+solution xs = length . filter id $ zipWith (<) xs (tail xs)
