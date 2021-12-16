@@ -24,6 +24,7 @@ import Day3 ( day3p1, day3p2 )
 import Control.Monad (unless)
 import System.Exit ( ExitCode(ExitFailure, ExitSuccess) )
 import Day4
+import Day5
 
 -- | Run a day's solution
 runDay :: IO ()
@@ -51,4 +52,5 @@ days =
   ,[day2p1, day2p2]
   ,[day3p1, day3p2]
   ,[day4p1, day4p2]
+  ,[day5p1, day5p2]
   ]

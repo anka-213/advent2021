@@ -21,6 +21,7 @@ common common-options
                      , neat-interpolation
                      , directory
                      , process
+                     , containers
   
   default-extensions:  DerivingStrategies
 
@@ -50,6 +51,7 @@ library
                      , Day3
                      , Day4
                      , Day5
+                     , Day6
 
 executable advent2021
   import:              common-options
