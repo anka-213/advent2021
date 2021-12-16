@@ -17,6 +17,8 @@ common common-options
   build-depends:       base ^>= 4.14.0.0
                      , hspec
   
+  default-extensions:  DerivingStrategies
+
   ghc-options:         -Wall
                        -Wcompat
                        -Widentities
@@ -39,6 +41,7 @@ library
   hs-source-dirs:      src
   exposed-modules:     Advent2021
                      , Day1
+                     , Day2
 
 executable advent2021
   import:              common-options
