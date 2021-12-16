@@ -11,9 +11,7 @@ import Text.Megaparsec (parse, Parsec, errorBundlePretty, sepBy1, endBy1)
 import Data.Void (Void)
 import Text.Megaparsec.Char.Lexer (decimal)
 import Text.Megaparsec.Char (char, hspace1, hspace, newline)
-import Data.List (find, transpose, partition)
-import Data.Maybe (listToMaybe, mapMaybe)
-import Data.Bifunctor (second)
+import Data.List (transpose, partition)
 
 -- | Solution for day 4 part 1
 day4p1 :: String -> String
@@ -49,15 +47,7 @@ pBoard :: Parser BingoBoard
 pBoard = BingoBoard <$> (hspace *> ((,False) <$> decimal) `sepBy1` hspace1) `endBy1` newline
 
 solution1 :: Input -> Int
-solution1 (rolls, boards) = head . map (uncurry scoreBoard) $ winningBoards rolls boards
--- solution1 = uncurry solution1'
-
--- solution1' :: [Int] -> [BingoBoard] -> Int
--- solution1' [] _ = error "no winning board"
--- solution1' (n : ns) bbs
---   | Just wb <- find winningBoard nextBoards = scoreBoard n wb
---   | otherwise = solution1' ns nextBoards
---   where nextBoards = map (addRoll n) bbs
+solution1 = head . winningScores
 
 scoreBoard :: Int -> BingoBoard -> Int
 scoreBoard n bb = (*n) $ sum . map fst . filter unmarked . concat $ bingoBoard bb
@@ -92,28 +82,15 @@ addRoll n = BingoBoard . map (map (\(i,b) -> if i == n then (i,True) else (i,b))
 -- findMaybe :: (a -> Maybe b) -> [a] -> Maybe b
 -- findMaybe f = listToMaybe . mapMaybe f
 
-allBoardStates :: [Int] -> [BingoBoard] -> [(Int, [BingoBoard])]
-allBoardStates rolls boards = zip rolls . tail $ scanl (flip $ map . addRoll) boards rolls
 
+winningBoardOrder :: [Int] -> [BingoBoard] -> [(Int, BingoBoard)]
+winningBoardOrder [] _ = []
+winningBoardOrder (n : ns) boards = map (n,) winning ++ winningBoardOrder ns loosing
+  where (winning, loosing) = partition winningBoard nextBoards
+        nextBoards = map (addRoll n) boards
 
-winningBoards :: [Int] -> [BingoBoard] -> [(Int, BingoBoard)]
-winningBoards rolls boards = mapMaybe findWinningBoard $ allBoardStates rolls boards
-
-findWinningBoard :: (Int, [BingoBoard]) -> Maybe (Int, BingoBoard)
-findWinningBoard = sequenceA . second (find @[] winningBoard)
-
--- winningBoardOrder :: [Int] -> [BingoBoard] -> [(Int, BingoBoard)]
--- winningBoardOrder [] _ = []
--- winningBoardOrder (n : ns) boards = map (n,) winning ++ winningBoardOrder ns loosing
---   where (winning, loosing) = partition winningBoard nextBoards
---         nextBoards = map (addRoll n) boards
+winningScores :: Input -> [Int]
+winningScores = map (uncurry scoreBoard) . uncurry winningBoardOrder
 
 solution2 :: Input -> Int
-solution2 (rolls, boards) = undefined
-
--- solution2' :: [Int] -> [BingoBoard] -> Int
--- solution2' [] _ = error "no winning board"
--- solution2' (n : ns) bbs
---   | Just wb <- find winningBoard nextBoards = scoreBoard n wb
---   | otherwise = solution2' ns nextBoards
---   where nextBoards = map (addRoll n) bbs
+solution2 = last . winningScores
