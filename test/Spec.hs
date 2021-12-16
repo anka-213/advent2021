@@ -1,8 +1,11 @@
+{-# LANGUAGE QuasiQuotes #-}
 module Main (main) where
 import Test.Hspec
 import qualified Data.List as List
 import Advent2021
 -- import Text.RawString.QQ (r)
+import NeatInterpolation (text)
+import qualified Data.Text as T
 
 main :: IO ()
 main = hspec $ do
@@ -22,25 +25,41 @@ main = hspec $ do
       day2p2 test2 `shouldBe` "900"
 
 test1 :: String
-test1 = "\
-         \199\n\
-         \200\n\
-         \208\n\
-         \210\n\
-         \200\n\
-         \207\n\
-         \240\n\
-         \269\n\
-         \260\n\
-         \263\n\
-         \"
+test1 = T.unpack [text|
+         199
+         200
+         208
+         210
+         200
+         207
+         240
+         269
+         260
+         263
+         |]
 
 test2 :: String
-test2 = "\
-         \forward 5\n\
-         \down 5\n\
-         \forward 8\n\
-         \up 3\n\
-         \down 8\n\
-         \forward 2\n\
-         \"
+test2 = T.unpack [text|
+         forward 5
+         down 5
+         forward 8
+         up 3
+         down 8
+         forward 2
+         |]
+
+test3 :: String
+test3 = T.unpack [text|
+  00100
+  11110
+  10110
+  10111
+  10101
+  01111
+  00111
+  11100
+  10000
+  11001
+  00010
+  01010
+  |]
