@@ -24,8 +24,12 @@ main = hspec $ do
   describe "day3" $ do
     it "solves the example input for part 1" $ do
       day3p1 test3 `shouldBe` "198"
-    -- it "solves the example input for part 2" $ do
-    --   day3p2 test3 `shouldBe` "3"
+    it "solves the oxygen generator rating for part 2" $ do
+      oxygenGeneratorRatingFull test3 `shouldBe` 23
+    it "solves the CO2 scrubber rating for part 2" $ do
+      co2ScrubberRatingFull test3 `shouldBe` 10
+    it "solves the example input for part 2" $ do
+      day3p2 test3 `shouldBe` "230"
 
 test1 :: String
 test1 = T.unpack [text|

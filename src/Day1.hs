@@ -10,6 +10,7 @@ module Day1
 day1p1 :: String -> String
 day1p1 = show . solution1 . map read . lines
 
+-- | Solution for day 1 part 2
 day1p2 :: String -> String
 day1p2 = show . solution2 . map read . lines
 
