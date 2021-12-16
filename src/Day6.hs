@@ -46,9 +46,12 @@ pInput = decimal `sepBy1` char ',' <* newline
 inputToState :: Input -> M.IntMap Int
 inputToState = M.fromListWith (+) . fmap (, 1)
 
+afterNDays :: Int -> Input -> Int
+afterNDays n = (!! n) . map (sum . map snd . M.toList) . iterate stepAll . inputToState
+
 -- solution1 :: Input -> Int
 solution1 :: Input -> Int
-solution1 = (!! 80) . map (sum . map snd . M.toList) . iterate stepAll . inputToState
+solution1 = afterNDays 80
 
 solution2 :: Input -> Int
-solution2 = undefined
+solution2 = afterNDays 256
