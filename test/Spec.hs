@@ -8,6 +8,7 @@ import NeatInterpolation (text)
 import qualified Data.Text as T
 import Day4
 import Day5
+import Day6
 
 main :: IO ()
 main = hspec $ do
@@ -44,6 +45,12 @@ main = hspec $ do
       day5p1 test5 `shouldBe` "5"
     it "solves the example input for part 2" $ do
       day5p2 test5 `shouldBe` "12"
+  
+  describe "day6" $ do
+    it "solves the example input for part 1" $ do
+      day6p1 test6 `shouldBe` "5934"
+    -- it "solves the example input for part 2" $ do
+    --   day6p2 test6 `shouldBe` "3"
 
 test1 :: String
 test1 = T.unpack [text|
@@ -122,3 +129,6 @@ test5 = (++"\n") $ T.unpack [text|
 0,0 -> 8,8
 5,5 -> 8,2
 |]
+
+test6 :: String
+test6 = (++"\n") $ T.unpack [text|3,4,3,1,2|]
