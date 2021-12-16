@@ -2,6 +2,7 @@
 module Main (main) where
 import Test.Hspec
 import Advent2021
+import Day3
 -- import Text.RawString.QQ (r)
 import NeatInterpolation (text)
 import qualified Data.Text as T
@@ -19,6 +20,12 @@ main = hspec $ do
       day2p1 test2 `shouldBe` "150"
     it "solves the example input for part 2" $ do
       day2p2 test2 `shouldBe` "900"
+  
+  describe "day3" $ do
+    it "solves the example input for part 1" $ do
+      day3p1 test3 `shouldBe` "198"
+    -- it "solves the example input for part 2" $ do
+    --   day3p2 test3 `shouldBe` "3"
 
 test1 :: String
 test1 = T.unpack [text|
