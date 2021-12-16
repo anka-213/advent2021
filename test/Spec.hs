@@ -12,6 +12,8 @@ main = hspec $ do
   describe "day1" $ do
     it "solves the example input for part 1" $ do
       day1p1 test1 `shouldBe` "7"
+    it "solves the example input for part 2" $ do
+      day1p2 test1 `shouldBe` "5"
 
 test1 :: String
 test1 = "\

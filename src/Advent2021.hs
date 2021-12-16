@@ -10,9 +10,10 @@ module Advent2021
        ( runDay
        , hello
        , day1p1
+       , day1p2
        ) where
 
-import Day1 (day1p1)
+import Day1 (day1p1, day1p2)
 import System.Environment (getArgs)
 
 
@@ -27,7 +28,7 @@ runDay = do
 
 days :: [[String -> String]]
 days = 
-  [[day1p1]
+  [[day1p1, day1p2]
   ]
 
 
