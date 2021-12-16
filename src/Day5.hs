@@ -8,7 +8,7 @@ module Day5
     , day5p2
     ) where
 import Text.Megaparsec
-    ( optional, parse, errorBundlePretty, many, Parsec, MonadParsec (eof), sepBy1, endBy1 )
+    ( parse, errorBundlePretty, Parsec, MonadParsec (eof), endBy1 )
 import Data.Void ( Void )
 import Text.Megaparsec.Char.Lexer ( decimal )
 import Text.Megaparsec.Char (char, newline, string)
@@ -32,7 +32,9 @@ data Link = Link
 data Coord = Coord
   { horiz :: Int
   , vert :: Int
-  } deriving stock (Show, Eq, Ord)
+  } deriving stock (Eq, Ord)
+
+instance Show Coord where show (Coord h v) = "(" ++ show h ++ "," ++ show v ++ ")"
 
 type Parser = Parsec Void String
 
@@ -51,16 +53,31 @@ pCoord :: Parser Coord
 pCoord = Coord <$> decimal <* char ',' <*> decimal
 
 solution1 :: Input -> Int
-solution1 = length . filter ((>1) . snd) . Map.toList . Map.fromListWith (+) . map (,1 :: Int) . concatMap allCoords
+solution1 = moreThanOne . concatMap allHorizCoords
 
+
+allHorizCoords :: Link -> [Coord]
+allHorizCoords Link {from, to}
+  | horiz from == horiz to =
+    [ Coord (horiz from) i | i <- vert from `range` vert to ]
+  | vert from == vert to =
+    [ Coord i (vert from) | i <- horiz from `range` horiz to ]
+  | otherwise = []
 
 allCoords :: Link -> [Coord]
 allCoords Link {from, to}
   | horiz from == horiz to =
-    [ Coord (horiz from) i | i <- [vert from `min` vert to .. vert from `max` vert to] ]
+    [ Coord (horiz from) i | i <- vert from `range` vert to ]
   | vert from == vert to =
-    [ Coord i (vert from) | i <- [horiz from `min` horiz to .. horiz from `max` horiz to] ]
-  | otherwise = []
+    [ Coord i (vert from) | i <- horiz from `range` horiz to ]
+  | (vert to - vert from) == (horiz to - horiz from) =
+    [ Coord (horiz from + i) (vert from + i) | i <- range 0 (horiz to - horiz from) ]
+  | (vert to - vert from) == (horiz from - horiz to) =
+    [ Coord (horiz from - i) (vert from + i) | i <- range 0 (horiz from - horiz to) ]
+  | otherwise = error $ "allCoords: not a diagonal link: " ++ show (from, to)
+
+range :: (Enum a, Ord a) => a -> a -> [a]
+range a b = [min a b .. max a b]
 
 -- overlaps :: Link -> Link -> Bool
 -- overlaps (Link (Coord xs1 ys1) (Coord xe1 ye1)) (Link (Coord xs2 ys2) (Coord xe2 ye2)) =
@@ -74,5 +91,12 @@ allCoords Link {from, to}
 
 -}
 
+countFrequency :: Ord a => [a] -> [(a, Int)]
+countFrequency = Map.toList . Map.fromListWith (+) . map (,1)
+
+moreThanOne :: Ord a => [a] -> Int
+moreThanOne = length . filter ((>1) . snd) . countFrequency
+
 solution2 :: Input -> Int
-solution2 = undefined
+solution2 = moreThanOne . concatMap allCoords
+-- solution2 = map allCoords
