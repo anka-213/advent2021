@@ -1,7 +1,7 @@
 module Main (main) where
 
-import Advent2021 (someFunc)
+import Advent2021 (runDay)
 
 
 main :: IO ()
-main = someFunc
+main = runDay

@@ -10,8 +10,8 @@ main = hspec $ do
     it "begins with \"Hello\"" $ do
       List.isPrefixOf "Hello" hello `shouldBe` True
   describe "day1" $ do
-    it "has a solution" $ do
-      day1 test1 `shouldBe` "7"
+    it "solves the example input for part 1" $ do
+      day1p1 test1 `shouldBe` "7"
 
 test1 :: String
 test1 = "\
