@@ -8,7 +8,6 @@ See README for more info
 
 module Advent2021
        ( runDay
-       , hello
        , day1p1
        , day1p2
        , day2p1
@@ -34,7 +33,3 @@ days =
   [[day1p1, day1p2]
   ,[day2p1, day2p2]
   ]
-
-
-hello :: String
-hello = "Hello"

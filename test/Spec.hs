@@ -1,7 +1,6 @@
 {-# LANGUAGE QuasiQuotes #-}
 module Main (main) where
 import Test.Hspec
-import qualified Data.List as List
 import Advent2021
 -- import Text.RawString.QQ (r)
 import NeatInterpolation (text)
@@ -9,9 +8,6 @@ import qualified Data.Text as T
 
 main :: IO ()
 main = hspec $ do
-  describe "hello" $ do
-    it "begins with \"Hello\"" $ do
-      List.isPrefixOf "Hello" hello `shouldBe` True
   describe "day1" $ do
     it "solves the example input for part 1" $ do
       day1p1 test1 `shouldBe` "7"
