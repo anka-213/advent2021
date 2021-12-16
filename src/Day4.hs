@@ -6,12 +6,11 @@ module Day4
     ( day4p1
     , day4p2
     ) where
-import Text.Megaparsec (parse, Parsec, errorBundlePretty, sepBy1, some, MonadParsec (try), endBy1)
+import Text.Megaparsec (parse, Parsec, errorBundlePretty, sepBy1, endBy1)
 import Data.Void (Void)
 import Text.Megaparsec.Char.Lexer (decimal)
-import Text.Megaparsec.Char (char, space1, hspace1, hspace, newline)
+import Text.Megaparsec.Char (char, hspace1, hspace, newline)
 import Data.List (find, transpose)
-import Data.Maybe (listToMaybe, mapMaybe)
 
 -- | Solution for day 4 part 1
 day4p1 :: String -> String
