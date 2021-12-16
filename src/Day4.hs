@@ -25,7 +25,14 @@ type Input = ([Int], [BingoBoard])
 
 newtype BingoBoard = BingoBoard
     { bingoBoard :: [[(Int,Bool)]]
-    } deriving stock (Show, Eq)
+    } deriving stock (Eq)
+
+instance Show BingoBoard where
+    show (BingoBoard b) = unlines $ map (unwords . map showCell) b
+
+showCell :: (Int, Bool) -> String
+showCell (n, True) = "X" ++ show n
+showCell (n, False) = " " ++ show n
 
 type Parser = Parsec Void String
 
@@ -56,14 +63,16 @@ winningBoard :: BingoBoard -> Bool
 winningBoard (BingoBoard bb) = any winningRow bb || winningCol bb || winningDiag bb
 
 winningDiag :: [[(Int, Bool)]] -> Bool
-winningDiag bb = winningRow (firstDiag bb) || winningRow (secondDiag bb)
+winningDiag _ = False
+-- winningDiag bb = winningRow (firstDiag bb) || winningRow (secondDiag bb)
 
-firstDiag :: [[a]] -> [a]
-firstDiag (xs:xss) = head xs : firstDiag (tail xss)
-firstDiag [] = []
+-- firstDiag :: Show a => [[a]] -> [a]
+-- firstDiag (xs@(_:_):xss) = head xs : firstDiag (map tail xss)
+-- firstDiag [] = []
+-- firstDiag xs = error $ "firstDiag: " ++ show xs
 
-secondDiag :: [[a]] -> [a]
-secondDiag = firstDiag . reverse
+-- secondDiag :: Show a => [[a]] -> [a]
+-- secondDiag = firstDiag . reverse
 
 winningCol :: [[(Int, Bool)]] -> Bool
 winningCol = any winningRow . transpose
