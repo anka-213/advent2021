@@ -12,7 +12,7 @@ import Text.Megaparsec
 import Data.Void ( Void )
 import Text.Megaparsec.Char.Lexer ( decimal )
 import Text.Megaparsec.Char (char, newline, string)
-import qualified Data.Map as Map
+import qualified Data.Map.Strict as Map
 
 -- | Solution for day 5 part 1
 day5p1 :: String -> String
