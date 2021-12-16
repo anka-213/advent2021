@@ -15,6 +15,7 @@ tested-with:         GHC == 8.8.3
 
 common common-options
   build-depends:       base ^>= 4.14.0.0
+                     , hspec
   
   ghc-options:         -Wall
                        -Wcompat
@@ -37,6 +38,7 @@ library
   import:              common-options
   hs-source-dirs:      src
   exposed-modules:     Advent2021
+                     , Day1
 
 executable advent2021
   import:              common-options

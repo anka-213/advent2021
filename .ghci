@@ -1,0 +1,2 @@
+:set -isrc
+:l test/Spec.hs
