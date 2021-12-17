@@ -10,6 +10,7 @@ import Day4
 import Day5
 import Day6
 import Day7
+import Day8
 
 main :: IO ()
 main = hspec $ do
@@ -58,6 +59,12 @@ main = hspec $ do
       day7p1 test7 `shouldBe` "37"
     it "solves the example input for part 2" $ do
       day7p2 test7 `shouldBe` "168"
+
+  describe "day8" $ do
+    it "solves the example input for part 1" $ do
+      day8p1 test8 `shouldBe` "26"
+    -- it "solves the example input for part 2" $ do
+    --   day8p2 test8 `shouldBe` ""
 
 test1 :: String
 test1 = T.unpack [text|
@@ -142,3 +149,17 @@ test6 = (++"\n") $ T.unpack [text|3,4,3,1,2|]
 
 test7 :: String
 test7 = (++"\n") $ T.unpack [text|16,1,2,0,4,2,7,1,2,14|]
+
+test8 :: String
+test8 = (++"\n") $ T.unpack [text|
+be cfbegad cbdgef fgaecd cgeb fdcge agebfd fecdb fabcd edb | fdgacbe cefdb cefbgd gcbe
+edbfga begcd cbg gc gcadebf fbgde acbgfd abcde gfcbed gfec | fcgedb cgb dgebacf gc
+fgaebd cg bdaec gdafb agbcfd gdcbef bgcad gfac gcb cdgabef | cg cg fdcagb cbg
+fbegcd cbd adcefb dageb afcb bc aefdc ecdab fgdeca fcdbega | efabcd cedba gadfec cb
+aecbfdg fbg gf bafeg dbefa fcge gcbea fcaegb dgceab fcbdga | gecf egdcabf bgf bfgea
+fgeab ca afcebg bdacfeg cfaedg gcfdb baec bfadeg bafgc acf | gebdcfa ecba ca fadegcb
+dbcfg fgd bdegcaf fgec aegbdf ecdfab fbedc dacgb gdcebf gf | cefg dcbef fcge gbcadfe
+bdfegc cbegaf gecbf dfcage bdacg ed bedf ced adcbefg gebcd | ed bcgafe cdgba cbgef
+egadfb cdbfeg cegd fecab cgb gbdefca cg fgcdab egfdb bfceg | gbdfcae bgc cg cgb
+gcafb gcf dcaebfg ecagb gf abcdeg gaef cafbge fdbac fegbdc | fgae cfgab fg bagce
+|]

@@ -54,6 +54,7 @@ library
                      , Day6
                      , Day7
                      , Day8
+                     , Day9
 
 executable advent2021
   import:              common-options
