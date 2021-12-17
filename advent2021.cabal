@@ -22,6 +22,7 @@ common common-options
                      , directory
                      , process
                      , containers
+                     , enummapset
   
   default-extensions:  DerivingStrategies
 
@@ -55,6 +56,8 @@ library
                      , Day7
                      , Day8
                      , Day9
+                     , Day16
+                     , Day17
 
 executable advent2021
   import:              common-options

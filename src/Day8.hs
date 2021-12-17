@@ -14,9 +14,10 @@ import Data.List (sortOn, groupBy, delete, sort, foldl')
 import Data.Function (on)
 import Data.Foldable (foldlM)
 import Data.Tuple (swap)
-import Data.Maybe (maybeToList, fromJust)
+import Data.Maybe (fromJust)
 import qualified Data.Map.Strict as M
 import Control.Monad (guard)
+import qualified Data.EnumSet as ES
 
 -- | Solution for day 8 part 1
 day8p1 :: String -> String
@@ -80,8 +81,13 @@ numbers =
   ,(9,"abcdfg")
   ]
 
-displayMap :: M.Map String Int
-displayMap = M.fromList $ map swap numbers
+type Charset = ES.EnumSet Char
+
+numbers' :: [(Int,Charset)]
+numbers' = map (second ES.fromList) numbers
+
+displayMap :: M.Map Charset Int
+displayMap = M.fromList $ map swap numbers'
 
 solution2 :: Input -> Int
 -- solution2 = sum . map (uncurry solveLine)
@@ -97,7 +103,7 @@ digitsToNumber = foldl' (\acc x -> acc * 10 + x) 0
 
 lookupDigit :: M.Map Char Char -> String -> Int
 lookupDigit myMap str =
-  fromJust $ (`M.lookup` displayMap) . sort =<< traverse (`M.lookup` myMap) str
+  fromJust $ (`M.lookup` displayMap) . ES.fromList =<< traverse (`M.lookup` myMap) str
 
 score :: String -> (Bool, Int)
 score xs = (not $ isEasy xs, length xs)
