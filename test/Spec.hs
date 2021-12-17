@@ -11,6 +11,8 @@ import Day5
 import Day6
 import Day7
 import Day8
+import Day16
+import Day17
 
 main :: IO ()
 main = hspec $ do
@@ -67,6 +69,18 @@ main = hspec $ do
       day8p2 test8a `shouldBe` "5353"
     it "solves the example input for part 2" $ do
       day8p2 test8 `shouldBe` "61229"
+  
+  describe "day16" $ do
+    it "solves the example input for part 1" $ do
+      day16p1 test16 `shouldBe` ""
+    -- it "solves the example input for part 2" $ do
+    --   day16p2 test16 `shouldBe` ""
+
+  -- describe "day17" $ do
+  --   it "solves the example input for part 1" $ do
+  --     day17p1 test17 `shouldBe` ""
+    -- it "solves the example input for part 2" $ do
+    --   day17p2 test17 `shouldBe` ""
 
 test1 :: String
 test1 = T.unpack [text|
@@ -171,3 +185,11 @@ bdfegc cbegaf gecbf dfcage bdacg ed bedf ced adcbefg gebcd | ed bcgafe cdgba cbg
 egadfb cdbfeg cegd fecab cgb gbdefca cg fgcdab egfdb bfceg | gbdfcae bgc cg cgb
 gcafb gcf dcaebfg ecagb gf abcdeg gaef cafbge fdbac fegbdc | fgae cfgab fg bagce
 |]
+
+test16 :: String
+test16 = (++"\n") $ T.unpack [text|
+  |]
+
+test17 :: String
+test17 = (++"\n") $ T.unpack [text|
+  |]

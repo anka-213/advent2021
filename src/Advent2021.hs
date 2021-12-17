@@ -28,6 +28,8 @@ import Day5 ( day5p1, day5p2 )
 import Day6 ( day6p1, day6p2 )
 import Day7 ( day7p1, day7p2 )
 import Day8 ( day8p1, day8p2 )
+import Day16
+import Day17
 
 -- | Run a day's solution
 runDay :: IO ()
@@ -59,4 +61,6 @@ days =
   ,[day6p1, day6p2]
   ,[day7p1, day7p2]
   ,[day8p1, day8p2]
+  ,[day16p1, day16p2]
+  ,[day17p1, day17p2]
   ]
