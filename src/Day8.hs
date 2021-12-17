@@ -17,6 +17,7 @@ import Data.Foldable (foldlM)
 import Data.Tuple (swap)
 import Data.Maybe (maybeToList)
 import Debug.Trace
+import qualified Data.Map.Strict as M
 
 -- | Solution for day 8 part 1
 day8p1 :: String -> String
@@ -80,8 +81,8 @@ numbers =
   ,(9,"abcdfg")
   ]
 
-displayMap :: [(String, Integer)]
-displayMap = map swap numbers
+displayMap :: M.Map String Integer
+displayMap = M.fromList $ map swap numbers
 
 -- solution2 :: Input -> Int
 -- solution2 = sum . map (uncurry solveLine)
@@ -92,25 +93,25 @@ solution2 = map (uncurry solveLine)
 solveLine key _vals = solveKey key
 
 -- solveKey :: [String] -> [(Char, Char)]
-solveKey = fmap fst . foldlM solveStep ([], "abcdefgh")
+solveKey = fmap fst . foldlM solveStep (M.empty, "abcdefgh")
 
-solveStep :: ([(Char, Char)], [Char]) -> String -> [([(Char, Char)], [Char])]
+solveStep :: (M.Map Char Char, [Char]) -> String -> [(M.Map Char Char, [Char])]
 solveStep (currentMap, unusedChars) str = do
   traceM $ "solveStep start: " ++ show currentMap ++ " " ++ show unusedChars ++ " " ++ show str
   (newMap,newUnused) <- foldlM solveWord (currentMap, unusedChars) str
   -- traceM $ "solveStep mid: " ++ show (newMap, newUnused)
-  _n <- maybeToList $ (`lookup` displayMap) =<< traverse (`lookup` newMap) str
+  _n <- maybeToList $ (`M.lookup` displayMap) =<< traverse (`M.lookup` newMap) str
   traceM $ "solveStep success: " ++ show (newMap, newUnused)
   return (newMap, newUnused)
 
-solveWord :: ([(Char, Char)], [Char]) -> Char -> [([(Char, Char)], String)]
+solveWord :: (M.Map Char Char, [Char]) -> Char -> [(M.Map Char Char, String)]
 -- solveWord (currMap, unusedChars) [] = return (currMap, unusedChars)
 solveWord (currMap, unusedChars) x = do
-  case x `lookup` currMap of
+  case x `M.lookup` currMap of
     Just _y -> pure (currMap, unusedChars)
     Nothing -> do
       (y, newUnused) <- select unusedChars
-      return (currMap ++ [(x, y)], newUnused)
+      return (M.insert x y currMap, newUnused)
 
 select :: [a] -> [(a,[a])]
 select [] = []
