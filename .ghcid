@@ -1,1 +1,1 @@
--c "cabal repl" -T=:main --warn test/Spec.hs
+-c "cabal repl --repl-options=+RTS --repl-options=-M1G --repl-options=-RTS" -T=:main --warn test/Spec.hs
