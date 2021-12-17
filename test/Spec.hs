@@ -63,8 +63,8 @@ main = hspec $ do
   describe "day8" $ do
     it "solves the example input for part 1" $ do
       day8p1 test8 `shouldBe` "26"
-    -- it "solves the example input for part 2" $ do
-    --   day8p2 test8 `shouldBe` ""
+    it "solves the example input for part 2" $ do
+      day8p2 test8 `shouldBe` "61229"
 
 test1 :: String
 test1 = T.unpack [text|

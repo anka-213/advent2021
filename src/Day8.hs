@@ -12,6 +12,11 @@ import Text.Megaparsec.Char
 import Data.Bifunctor (second)
 import Data.List (sortOn, groupBy)
 import Data.Function (on)
+import qualified Data.Map.Strict as Map
+import Data.Foldable (foldlM)
+import Data.Tuple (swap)
+import Data.Maybe (maybeToList)
+import Debug.Trace
 
 -- | Solution for day 8 part 1
 day8p1 :: String -> String
@@ -58,11 +63,11 @@ uniqueLengthPairs :: [(Integer, Int)]
 uniqueLengthPairs = concatMap getUnique segmentLengths
 
 getUnique :: [a] -> [a]
-getUnique [x] = [x] 
+getUnique [x] = [x]
 getUnique _ = []
 
 numbers :: [(Integer, [Char])]
-numbers = 
+numbers =
   [(0,"abcefg")
   ,(1,"cf")
   ,(2,"acdeg")
@@ -75,5 +80,39 @@ numbers =
   ,(9,"abcdfg")
   ]
 
-solution2 :: Input -> Int
-solution2 = undefined
+displayMap :: [(String, Integer)]
+displayMap = map swap numbers
+
+-- solution2 :: Input -> Int
+-- solution2 = sum . map (uncurry solveLine)
+solution2 = map (uncurry solveLine)
+
+-- solveLine :: [String] -> [String] -> Int
+-- solveLine = undefined
+solveLine key _vals = solveKey key
+
+-- solveKey :: [String] -> [(Char, Char)]
+solveKey = fmap fst . foldlM solveStep ([], "abcdefgh")
+
+solveStep :: ([(Char, Char)], [Char]) -> String -> [([(Char, Char)], [Char])]
+solveStep (currentMap, unusedChars) str = do
+  traceM $ "solveStep start: " ++ show currentMap ++ " " ++ show unusedChars ++ " " ++ show str
+  (newMap,newUnused) <- foldlM solveWord (currentMap, unusedChars) str
+  -- traceM $ "solveStep mid: " ++ show (newMap, newUnused)
+  _n <- maybeToList $ (`lookup` displayMap) =<< traverse (`lookup` newMap) str
+  traceM $ "solveStep success: " ++ show (newMap, newUnused)
+  return (newMap, newUnused)
+
+solveWord :: ([(Char, Char)], [Char]) -> Char -> [([(Char, Char)], String)]
+-- solveWord (currMap, unusedChars) [] = return (currMap, unusedChars)
+solveWord (currMap, unusedChars) x = do
+  case x `lookup` currMap of
+    Just _y -> pure (currMap, unusedChars)
+    Nothing -> do
+      (y, newUnused) <- select unusedChars
+      return (currMap ++ [(x, y)], newUnused)
+
+select :: [a] -> [(a,[a])]
+select [] = []
+select (x:xs) = (x,xs) : fmap (second (x:)) (select xs)
+
