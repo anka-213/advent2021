@@ -7,6 +7,8 @@ module Day8
     ) where
 import Text.Megaparsec
 import Data.Void (Void)
+import Text.Megaparsec.Char.Lexer (decimal)
+import Text.Megaparsec.Char (char, newline)
 
 -- | Solution for day 8 part 1
 day8p1 :: String -> String
@@ -16,7 +18,7 @@ day8p1 = show . solution1 . parseit
 day8p2 :: String -> String
 day8p2 = show . solution2 . parseit
 
-type Input = ()
+type Input = [Int]
 
 type Parser = Parsec Void String
 
@@ -26,7 +28,7 @@ parseit s = case parse (pInput <* eof) "input" s of
     Right x -> x
 
 pInput :: Parser Input
-pInput = undefined
+pInput = decimal `sepBy1` char ',' <* newline
 
 solution1 :: Input -> Int
 solution1 = undefined
