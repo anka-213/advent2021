@@ -10,7 +10,7 @@ import Data.Void (Void)
 import Text.Megaparsec.Char
     ( string, hspace1, letterChar, newline )
 import Data.Bifunctor (second)
-import Data.List (sortOn, groupBy, delete, sort)
+import Data.List (sortOn, groupBy, delete, sort, foldl')
 import Data.Function (on)
 import Data.Foldable (foldlM)
 import Data.Tuple (swap)
@@ -51,7 +51,7 @@ solution1 :: Input -> Int
 solution1 = length . easyDigits
 
 easyDigits :: Input -> [String]
-easyDigits = filter ((`elem`uniqueLengths).length) . concatMap snd
+easyDigits = filter isEasy . concatMap snd
 
 segmentLengths :: [[(Int, Int)]]
 segmentLengths = groupBy ((==) `on` snd) . sortOn snd $ map (second length) numbers
@@ -93,7 +93,7 @@ solveLine :: [String] -> [String] -> Int
 solveLine key = digitsToNumber . map (lookupDigit $ solveKey key)
 
 digitsToNumber :: [Int] -> Int
-digitsToNumber = foldl (\acc x -> acc * 10 + x) 0
+digitsToNumber = foldl' (\acc x -> acc * 10 + x) 0
 
 lookupDigit :: M.Map Char Char -> String -> Int
 lookupDigit myMap str =
@@ -118,7 +118,7 @@ solveStep (currentMap, ns) str = do
   -- (newMap, newUnused) <- foldlM tryInsert (currentMap, unusedChars) $ zip str chars
   (newMap,"") <- foldlM solveWord (currentMap, chars) str
   -- traceM $ "solveStep mid2: " ++ show (newMap, newUnused)
-  _n <- maybeToList $ (`M.lookup` displayMap) . sort =<< traverse (`M.lookup` newMap) str
+  -- _n <- maybeToList $ (`M.lookup` displayMap) . sort =<< traverse (`M.lookup` newMap) str
   -- traceM $ "solveStep success: " ++ show (newMap, newUnused) ++ " " ++ show _n
   return (newMap, n:ns)
 
