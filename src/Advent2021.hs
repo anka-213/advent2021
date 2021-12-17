@@ -61,6 +61,13 @@ days =
   ,[day6p1, day6p2]
   ,[day7p1, day7p2]
   ,[day8p1, day8p2]
+  ,[day8p1, day8p2] -- 9
+  ,[day8p1, day8p2] -- 10
+  ,[day8p1, day8p2] -- 11
+  ,[day8p1, day8p2] -- 12
+  ,[day8p1, day8p2] -- 13
+  ,[day8p1, day8p2] -- 14
+  ,[day8p1, day8p2] -- 15
   ,[day16p1, day16p2]
   ,[day17p1, day17p2]
   ]

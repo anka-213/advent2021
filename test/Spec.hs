@@ -70,17 +70,17 @@ main = hspec $ do
     it "solves the example input for part 2" $ do
       day8p2 test8 `shouldBe` "61229"
   
-  describe "day16" $ do
-    it "solves the example input for part 1" $ do
-      day16p1 test16 `shouldBe` ""
-    -- it "solves the example input for part 2" $ do
-    --   day16p2 test16 `shouldBe` ""
-
-  -- describe "day17" $ do
+  -- describe "day16" $ do
   --   it "solves the example input for part 1" $ do
-  --     day17p1 test17 `shouldBe` ""
-    -- it "solves the example input for part 2" $ do
-    --   day17p2 test17 `shouldBe` ""
+  --     day16p1 test16 `shouldBe` ""
+  --   -- it "solves the example input for part 2" $ do
+  --   --   day16p2 test16 `shouldBe` ""
+
+  describe "day17" $ do
+    it "solves the example input for part 1" $ do
+      day17p1 test17 `shouldBe` "45"
+    it "solves the example input for part 2" $ do
+      day17p2 test17 `shouldBe` "112"
 
 test1 :: String
 test1 = T.unpack [text|
@@ -192,4 +192,5 @@ test16 = (++"\n") $ T.unpack [text|
 
 test17 :: String
 test17 = (++"\n") $ T.unpack [text|
+target area: x=20..30, y=-10..-5
   |]
